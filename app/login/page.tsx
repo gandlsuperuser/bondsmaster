@@ -109,7 +109,7 @@ function LoginForm() {
             <Shield className="h-6 w-6 text-blue-400" />
           </div>
           <span className="font-bold text-xl tracking-tight bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-            BondMaster
+            BondsMaster
           </span>
         </div>
 
@@ -151,7 +151,7 @@ function LoginForm() {
             {[
               "Real-time SMS alerts & reminders",
               "Interactive Defendant check-in timelines",
-              "Supabase PostgreSQL security models"
+              "Enterprise-grade security & audit logging"
             ].map((text, idx) => (
               <div key={idx} className="flex items-center gap-3 text-sm text-slate-300">
                 <div className="h-1.5 w-1.5 rounded-full bg-blue-400 shadow-sm" />
@@ -162,7 +162,7 @@ function LoginForm() {
         </div>
 
         <div className="relative z-10 text-xs text-slate-400 flex items-center gap-2">
-          <span>&copy; 2026 BondMaster Platform</span>
+          <span>&copy; 2026 BondsMaster Platform</span>
           <span>•</span>
           <a href="#" className="hover:text-white transition-colors">Security Audit</a>
         </div>

@@ -42,9 +42,9 @@ export default function ForgotPasswordPage() {
       const result = await forgotPasswordAction(null, formData);
 
       if (result.success) {
-        setSuccessMessage(result.message || "Recovery email sent.");
+        setSuccessMessage("message" in result ? result.message : "Recovery email sent.");
       } else {
-        setError(result.error || "Failed to process request.");
+        setError("error" in result ? result.error : "Failed to process request.");
       }
     });
   };
@@ -102,15 +102,6 @@ export default function ForgotPasswordPage() {
                   <CheckCircle className="h-4 w-4 shrink-0 mt-0.5" />
                   <div className="flex flex-col gap-1">
                     <span>{successMessage}</span>
-                    {/* Simulated email inbox link in mock mode */}
-                    {email.endsWith("@bondsmaster.com") && (
-                      <Link
-                        href={`/reset-password?email=${encodeURIComponent(email)}`}
-                        className="text-xs font-semibold underline text-emerald-700 dark:text-emerald-300 mt-2 hover:opacity-90 block"
-                      >
-                        [Simulate Mail Link] Go to Password Reset Page &rarr;
-                      </Link>
-                    )}
                   </div>
                 </motion.div>
               )}

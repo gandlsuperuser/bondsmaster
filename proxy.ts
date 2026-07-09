@@ -1,10 +1,13 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { isSupabaseConfigured } from "@/lib/supabase/client";
+import { verifySessionToken, COOKIE_NAME } from "@/lib/auth/session";
+
+const AUTH_ROUTES = ["/login", "/forgot-password", "/reset-password", "/invite"];
+const PROTECTED_PREFIX = "/dashboard";
 
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Let static assets pass
+  // ── Static assets — pass through immediately ─────────────────────────────
   if (
     pathname.startsWith("/_next") ||
     pathname.startsWith("/api") ||
@@ -14,47 +17,24 @@ export async function proxy(request: NextRequest) {
     return NextResponse.next();
   }
 
-  const isConfigured = isSupabaseConfigured();
+  // ── Read session cookie ──────────────────────────────────────────────────
+  const token = request.cookies.get(COOKIE_NAME)?.value;
   let isAuthenticated = false;
-  let response = NextResponse.next({ request });
 
-  if (isConfigured) {
-    // 1. Supabase Auth Mode
-    const { createServerClient } = await import("@supabase/ssr");
-    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-    const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
-
-    const supabase = createServerClient(supabaseUrl, supabaseAnonKey, {
-      cookies: {
-        getAll() {
-          return request.cookies.getAll();
-        },
-        setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value));
-          response = NextResponse.next({ request });
-          cookiesToSet.forEach(({ name, value, options }) =>
-            response.cookies.set(name, value, options)
-          );
-        },
-      },
-    });
-
-    try {
-      const { data: { user } } = await supabase.auth.getUser();
-      isAuthenticated = !!user;
-    } catch (e) {
-      isAuthenticated = false;
-    }
-  } else {
-    // 2. Mock Auth Mode
-    isAuthenticated = request.cookies.has("bondsmaster-mock-session");
+  if (token) {
+    const session = await verifySessionToken(token);
+    isAuthenticated = !!session;
   }
 
-  const isAuthRoute = ["/login", "/forgot-password", "/reset-password"].some(
+  // ── Route classification ─────────────────────────────────────────────────
+  const isAuthRoute = AUTH_ROUTES.some(
     (route) => pathname === route || pathname.startsWith(route + "/")
   );
-  const isProtectedRoute = pathname === "/dashboard" || pathname.startsWith("/dashboard/");
+  const isProtectedRoute =
+    pathname === PROTECTED_PREFIX ||
+    pathname.startsWith(PROTECTED_PREFIX + "/");
 
+  // ── Redirect unauthenticated users away from protected routes ────────────
   if (isProtectedRoute && !isAuthenticated) {
     const url = request.nextUrl.clone();
     url.pathname = "/login";
@@ -62,19 +42,20 @@ export async function proxy(request: NextRequest) {
     return NextResponse.redirect(url);
   }
 
+  // ── Redirect authenticated users away from auth routes ───────────────────
   if (isAuthRoute && isAuthenticated) {
     const url = request.nextUrl.clone();
     url.pathname = "/dashboard";
     return NextResponse.redirect(url);
   }
 
-  return response;
+  return NextResponse.next({ request });
 }
 
 export const config = {
   matcher: [
     /*
-     * Match all request paths except for static files
+     * Match all request paths except static files
      */
     "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
   ],

@@ -67,16 +67,16 @@ UI: Tailwind CSS + shadcn/ui
 
 # 2. Authentication
 
-* [ ] Supabase Authentication
-* [ ] Login
-* [ ] Logout
-* [ ] Forgot Password
-* [ ] Reset Password
-* [ ] Invite User
-* [ ] Organization Support
-* [ ] Multi-Tenant Authentication
-* [ ] Session Management
-* [ ] MFA Ready
+* [X] Supabase Authentication
+* [X] Login
+* [X] Logout
+* [X] Forgot Password
+* [X] Reset Password
+* [X] Invite User
+* [X] Organization Support
+* [X] Multi-Tenant Authentication
+* [X] Session Management
+* [X] MFA Ready
 
 ---
 
