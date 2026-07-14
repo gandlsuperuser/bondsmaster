@@ -5,10 +5,8 @@ import {
   Search,
   Plus,
   FolderOpen,
-  Filter,
   Printer,
   FileText,
-  Tag,
   Clock,
   ExternalLink,
 } from "lucide-react";
@@ -157,7 +155,7 @@ export function BondsLedger({ bonds, pagination }: BondsLedgerProps) {
                   className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-left transition-colors cursor-pointer ${
                     active
                       ? "bg-blue-50 dark:bg-blue-950/30 text-blue-600 dark:text-blue-400 font-bold"
-                      : "text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-850"
+                      : "text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-855"
                   }`}
                 >
                   <span>{item.name}</span>
@@ -185,7 +183,7 @@ export function BondsLedger({ bonds, pagination }: BondsLedgerProps) {
                 placeholder="Search..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="text-xs bg-white dark:bg-slate-950 border border-slate-300 dark:border-slate-850 rounded-lg px-3 py-1.5 text-slate-900 dark:text-slate-100 outline-hidden flex-1"
+                className="text-xs bg-white dark:bg-slate-955 border border-slate-300 dark:border-slate-850 rounded-lg px-3 py-1.5 text-slate-900 dark:text-slate-100 outline-hidden flex-1"
               />
               <button
                 type="submit"
@@ -194,7 +192,7 @@ export function BondsLedger({ bonds, pagination }: BondsLedgerProps) {
                 Go
               </button>
             </form>
-            <div className="flex items-center justify-between text-xs pt-1 border-t border-slate-100 dark:border-slate-800">
+            <div className="flex items-center justify-between text-xs pt-1 border-t border-slate-100 dark:border-slate-850">
               <button
                 type="button"
                 onClick={handleClearFilters}
@@ -244,7 +242,7 @@ export function BondsLedger({ bonds, pagination }: BondsLedgerProps) {
             </p>
           </div>
 
-          <div className="flex items-center gap-4 bg-blue-50 dark:bg-blue-950/20 border border-blue-100 dark:border-blue-900/30 rounded-xl px-4 py-2.5">
+          <div className="flex items-center gap-4 bg-blue-50 dark:bg-blue-955/20 border border-blue-100 dark:border-blue-900/30 rounded-xl px-4 py-2.5">
             <div className="flex flex-col">
               <span className="text-[10px] text-blue-600 dark:text-blue-400 font-semibold uppercase tracking-wider">
                 Total Liability
@@ -257,13 +255,13 @@ export function BondsLedger({ bonds, pagination }: BondsLedgerProps) {
         </div>
 
         {/* Top Filter Panel */}
-        <div className="grid grid-cols-2 md:grid-cols-7 gap-3 items-end bg-slate-50 dark:bg-slate-850/40 p-4 rounded-xl border border-slate-200 dark:border-slate-800">
+        <div className="grid grid-cols-2 md:grid-cols-7 gap-3 items-end bg-slate-50 dark:bg-slate-855/40 p-4 rounded-xl border border-slate-200 dark:border-slate-800">
           <div className="flex flex-col gap-1">
             <label className="text-[10px] font-semibold text-slate-500 uppercase">Insurer</label>
             <select
               value={insurer}
               onChange={(e) => setInsurer(e.target.value)}
-              className="text-xs border border-slate-300 dark:border-slate-800 rounded-lg bg-white dark:bg-slate-950 p-2 outline-hidden text-slate-700 dark:text-slate-300"
+              className="text-xs border border-slate-300 dark:border-slate-800 rounded-lg bg-white dark:bg-slate-955 p-2 outline-hidden text-slate-700 dark:text-slate-300"
             >
               <option>All</option>
             </select>
@@ -273,7 +271,7 @@ export function BondsLedger({ bonds, pagination }: BondsLedgerProps) {
             <select
               value={office}
               onChange={(e) => setOffice(e.target.value)}
-              className="text-xs border border-slate-300 dark:border-slate-800 rounded-lg bg-white dark:bg-slate-950 p-2 outline-hidden text-slate-700 dark:text-slate-300"
+              className="text-xs border border-slate-300 dark:border-slate-800 rounded-lg bg-white dark:bg-slate-955 p-2 outline-hidden text-slate-700 dark:text-slate-300"
             >
               <option>All</option>
             </select>
@@ -283,7 +281,7 @@ export function BondsLedger({ bonds, pagination }: BondsLedgerProps) {
             <select
               value={agent}
               onChange={(e) => setAgent(e.target.value)}
-              className="text-xs border border-slate-300 dark:border-slate-800 rounded-lg bg-white dark:bg-slate-950 p-2 outline-hidden text-slate-700 dark:text-slate-300"
+              className="text-xs border border-slate-300 dark:border-slate-800 rounded-lg bg-white dark:bg-slate-955 p-2 outline-hidden text-slate-700 dark:text-slate-300"
             >
               <option>All</option>
               <option>Inventory</option>
@@ -294,7 +292,7 @@ export function BondsLedger({ bonds, pagination }: BondsLedgerProps) {
             <select
               value={court}
               onChange={(e) => setCourt(e.target.value)}
-              className="text-xs border border-slate-300 dark:border-slate-800 rounded-lg bg-white dark:bg-slate-950 p-2 outline-hidden text-slate-700 dark:text-slate-300"
+              className="text-xs border border-slate-300 dark:border-slate-800 rounded-lg bg-white dark:bg-slate-955 p-2 outline-hidden text-slate-700 dark:text-slate-300"
             >
               <option>All</option>
             </select>
@@ -304,7 +302,7 @@ export function BondsLedger({ bonds, pagination }: BondsLedgerProps) {
             <input
               type="text"
               placeholder="$10.00"
-              className="text-xs border border-slate-300 dark:border-slate-800 rounded-lg bg-white dark:bg-slate-950 p-2 outline-hidden"
+              className="text-xs border border-slate-300 dark:border-slate-800 rounded-lg bg-white dark:bg-slate-955 p-2 outline-hidden"
             />
           </div>
           <button className="h-9 px-4 rounded-lg bg-blue-600 hover:bg-blue-500 font-semibold text-white transition-colors text-xs shadow-xs flex items-center justify-center cursor-pointer">
@@ -443,7 +441,7 @@ export function BondsLedger({ bonds, pagination }: BondsLedgerProps) {
                       <td className="py-3.5 px-4 text-center">
                         <Link
                           href={`/dashboard/bonds/${bond.id}`}
-                          className="inline-block p-1 rounded-md border text-slate-500 hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-950/30 transition-colors"
+                          className="inline-block p-1 rounded-md border text-slate-500 hover:text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-955/30 transition-colors"
                         >
                           <ExternalLink className="h-3.5 w-3.5" />
                         </Link>

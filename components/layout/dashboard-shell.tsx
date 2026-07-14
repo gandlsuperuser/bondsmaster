@@ -21,6 +21,8 @@ import {
   Plus,
   PenTool,
   UserCheck,
+  Receipt,
+  BarChart3,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { usePathname, useRouter } from "next/navigation";
@@ -54,7 +56,9 @@ export function DashboardShell({ children, user }: DashboardShellProps) {
     { label: "Defendants", href: "/dashboard/defendants", icon: <Users className="h-4 w-4" />, permission: "view_defendants" as Permission },
     { label: "Bonds", href: "/dashboard/bonds", icon: <FileText className="h-4 w-4" />, permission: "view_bonds" as Permission },
     { label: "Co-Signers", href: "/dashboard/indemnitors", icon: <UserCheck className="h-4 w-4" />, permission: "view_defendants" as Permission },
+    { label: "Invoices", href: "/dashboard/invoices", icon: <Receipt className="h-4 w-4" />, permission: "view_payments" as Permission },
     { label: "Payments", href: "/dashboard/payments", icon: <CreditCard className="h-4 w-4" />, permission: "view_payments" as Permission },
+    { label: "Reports", href: "/dashboard/reports", icon: <BarChart3 className="h-4 w-4" />, permission: "view_reports" as Permission },
     { label: "SMS Center", href: "/dashboard/sms", icon: <MessageSquare className="h-4 w-4" />, permission: "view_sms" as Permission },
     { label: "Signatures", href: "/dashboard/signatures", icon: <CheckSquare className="h-4 w-4" />, permission: "view_signatures" as Permission },
     { label: "Bailbond E-sign", href: "/dashboard/esign", icon: <PenTool className="h-4 w-4" />, permission: "view_signatures" as Permission },

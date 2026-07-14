@@ -241,6 +241,8 @@ UI: Tailwind CSS + shadcn/ui
 * [X] Status Workflow
 * [X] Bond Search
 * [X] Bond Dashboard
+* [ ] Invoices
+* [ ] Reports
 
 ---
 

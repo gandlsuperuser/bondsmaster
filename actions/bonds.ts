@@ -56,6 +56,11 @@ export async function getBonds(params?: {
               powerNumber: true,
             },
           },
+          payments: {
+            select: {
+              amount: true,
+            },
+          },
         },
       }),
       prisma.bond.count({ where }),
