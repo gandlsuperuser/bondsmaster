@@ -31,6 +31,10 @@ enum ActivityAction {
   defendant_created
   defendant_updated
   defendant_deleted
+  bond_created
+  bond_updated
+  bond_deleted
+  bond_status_changed
 }
 
 // ─── Core & Auth ───────────────────────────────────────────
@@ -48,6 +52,7 @@ model Organization {
   bonds             Bond[]
   settings          OrganizationSetting?
   roles             Role[]
+  indemnitors       Indemnitor[]
 }
 
 model User {
@@ -226,6 +231,8 @@ model DefendantDocument {
 // ─── Co-Signers / Indemnitors ──────────────────────────────
 model Indemnitor {
   id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  orgId     String   @map("org_id") @db.Uuid
+  organization Organization @relation(fields: [orgId], references: [id])
   firstName String
   lastName  String
   phone     String?
