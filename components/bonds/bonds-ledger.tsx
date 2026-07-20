@@ -9,6 +9,7 @@ import {
   FileText,
   Clock,
   ExternalLink,
+  Tag,
 } from "lucide-react";
 import Link from "next/link";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
@@ -65,6 +66,21 @@ export function BondsLedger({ bonds, pagination }: BondsLedgerProps) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+
+  const [selectedTag, setSelectedTag] = useState(searchParams.get("tag") || "");
+
+  const handleTagClick = (tag: string) => {
+    const nextTag = selectedTag === tag ? "" : tag;
+    setSelectedTag(nextTag);
+    const params = new URLSearchParams(searchParams.toString());
+    if (nextTag) {
+      params.set("tag", nextTag);
+    } else {
+      params.delete("tag");
+    }
+    params.set("page", "1");
+    router.push(`${pathname}?${params.toString()}`);
+  };
 
   const [activeFilter, setActiveFilter] = useState("Active Bonds");
   const [searchQuery, setSearchQuery] = useState(searchParams.get("query") || "");
@@ -225,6 +241,32 @@ export function BondsLedger({ bonds, pagination }: BondsLedgerProps) {
                 {name}
               </button>
             ))}
+          </div>
+        </div>
+
+        {/* 4. Tag Filter Card */}
+        <div className="bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-800 rounded-xl shadow-xs overflow-hidden">
+          <div className="bg-slate-50 dark:bg-slate-800/50 px-4 py-3 border-b border-slate-200 dark:border-slate-800 flex items-center gap-2">
+            <Tag className="h-4 w-4 text-blue-600 dark:text-blue-400" />
+            <h3 className="font-bold text-sm text-slate-800 dark:text-slate-200">Filter by Tag</h3>
+          </div>
+          <div className="p-3 flex flex-wrap gap-2 text-xs">
+            {["VIP", "High Risk", "Installment Plan", "Corporate", "Out of State", "First Time"].map((tag) => {
+              const active = selectedTag === tag;
+              return (
+                <button
+                  key={tag}
+                  onClick={() => handleTagClick(tag)}
+                  className={`px-2.5 py-1 rounded-full border text-[11px] font-bold transition-all cursor-pointer ${
+                    active
+                      ? "bg-blue-600 text-white border-blue-600"
+                      : "bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-850 hover:bg-slate-100"
+                  }`}
+                >
+                  {tag}
+                </button>
+              );
+            })}
           </div>
         </div>
       </div>

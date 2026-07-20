@@ -3,9 +3,11 @@
 import React from "react";
 import { format } from "date-fns";
 import { Calendar as CalendarIcon, ShieldAlert, User } from "lucide-react";
+import Link from "next/link";
 
 interface CaseMilestone {
   id: string;
+  defendantId: string;
   defendantName: string;
   arrestDate: any;
   releasedDate: any;
@@ -106,9 +108,12 @@ export function CalendarWidget({ appearances: milestones }: CalendarWidgetProps)
                     
                     {/* Left Column: Defendant Name */}
                     <div className="col-span-3 pr-2 pl-3 flex flex-col gap-0.5 min-w-0">
-                      <span className="font-extrabold text-xs text-slate-900 dark:text-slate-100 truncate group-hover:text-blue-600 transition-colors">
+                      <Link
+                        href={`/dashboard/defendants/${m.defendantId}`}
+                        className="font-extrabold text-xs text-slate-900 dark:text-slate-100 truncate hover:text-blue-600 transition-colors hover:underline"
+                      >
                         {m.defendantName}
-                      </span>
+                      </Link>
                       <span className="text-[9px] font-bold text-slate-500 truncate max-w-[140px]" title={m.courtName || ""}>
                         {m.courtName || "Pending Court assignment"}
                       </span>

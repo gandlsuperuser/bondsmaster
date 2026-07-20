@@ -10,6 +10,7 @@ interface PageProps {
     page?: string;
     status?: string;
     letter?: string;
+    tag?: string;
   }>;
 }
 
@@ -24,6 +25,7 @@ export default async function BondsPage({ searchParams }: PageProps) {
   const page = parseInt(resolvedParams.page || "1", 10);
   const status = resolvedParams.status || "all";
   const letter = resolvedParams.letter || "";
+  const tag = resolvedParams.tag || "";
 
   // Combine query filters (if user clicked jump bar, filter by last name starting letter)
   let combinedQuery = query;
@@ -38,6 +40,7 @@ export default async function BondsPage({ searchParams }: PageProps) {
     page,
     pageSize: 10,
     status: status !== "all" ? status : undefined,
+    tag: tag || undefined,
   });
 
   // Apply letter filtering on server if letter is selected (our backend can also filter it, but doing a quick filter here is very clean)

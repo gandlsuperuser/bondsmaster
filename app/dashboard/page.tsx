@@ -131,6 +131,7 @@ export default async function DashboardPage() {
     const nextAppearance = bond.defendant.courtAppearances[0];
     return {
       id: bond.id,
+      defendantId: bond.defendant.id,
       defendantName: `${bond.defendant.firstName} ${bond.defendant.lastName}`,
       arrestDate: bond.arrestDate,
       releasedDate: bond.releasedDate,

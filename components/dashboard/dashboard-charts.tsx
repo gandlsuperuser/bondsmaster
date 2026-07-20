@@ -10,6 +10,7 @@ import {
   Tooltip,
   ResponsiveContainer
 } from "recharts";
+import { useRouter } from "next/navigation";
 
 interface DashboardChartsProps {
   data: {
@@ -20,11 +21,13 @@ interface DashboardChartsProps {
 }
 
 export function DashboardCharts({ data }: DashboardChartsProps) {
+  const router = useRouter();
+
   return (
     <div className="border rounded-xl bg-card p-5 flex flex-col gap-4 shadow-xs lg:col-span-2">
       <div>
         <h3 className="font-bold text-lg">Revenue & Bond Volume</h3>
-        <p className="text-xs text-muted-foreground">Monthly premium collection vs new bonds issued</p>
+        <p className="text-xs text-muted-foreground">Monthly premium collection vs new bonds issued (Click to view P&L)</p>
       </div>
 
       <div className="h-[300px] w-full mt-4">
@@ -32,6 +35,8 @@ export function DashboardCharts({ data }: DashboardChartsProps) {
           <BarChart
             data={data}
             margin={{ top: 10, right: 10, left: -20, bottom: 0 }}
+            onClick={() => router.push("/dashboard/reports?tab=pl")}
+            style={{ cursor: "pointer" }}
           >
             <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
             <XAxis 

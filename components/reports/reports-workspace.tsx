@@ -13,6 +13,7 @@ import {
   Printer,
 } from "lucide-react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 
 interface Bond {
   id: string;
@@ -33,7 +34,10 @@ interface ReportsWorkspaceProps {
 }
 
 export function ReportsWorkspace({ bonds }: ReportsWorkspaceProps) {
-  const [activeTab, setActiveTab] = useState<"liability" | "collection" | "auditing" | "pl">("liability");
+  const searchParams = useSearchParams();
+  const [activeTab, setActiveTab] = useState<"liability" | "collection" | "auditing" | "pl">(
+    (searchParams.get("tab") as any) || "liability"
+  );
 
   const totalLiability = bonds.reduce((sum, b) => sum + b.amount, 0);
   const targetPremium = totalLiability * 0.1;

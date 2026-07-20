@@ -10,6 +10,7 @@ export async function getBonds(params?: {
   page?: number;
   pageSize?: number;
   status?: string;
+  tag?: string;
 }) {
   const session = await getSession();
   if (!session) return { success: false, error: "Unauthorized" };
@@ -19,6 +20,7 @@ export async function getBonds(params?: {
   const pageSize = params?.pageSize || 10;
   const skip = (page - 1) * pageSize;
   const status = params?.status || "all";
+  const tag = params?.tag || "";
 
   try {
     const where: any = {
@@ -27,6 +29,12 @@ export async function getBonds(params?: {
 
     if (status !== "all") {
       where.status = status;
+    }
+
+    if (tag) {
+      where.defendant = {
+        tags: { has: tag }
+      };
     }
 
     if (query) {
